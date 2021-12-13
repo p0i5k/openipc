@@ -18,6 +18,8 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v2
+        with:
+          refs: uimage-patch
 
       - name: Install build dependencies
         id: install
