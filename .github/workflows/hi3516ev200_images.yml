@@ -105,7 +105,6 @@ jobs:
           release_name: ${{ env.RELEASE_NAME }}
           draft: false
           prerelease: ${{ env.PRERELEASE }}
-          commitish: ${{ github.ref }}
 
       - name: Upload FW to release
         uses: svenstaro/upload-release-action@v2
@@ -116,6 +115,7 @@ jobs:
           asset_name: "openipc.hi3516ev200-br.tgz"
           tag: ${{ env.TAG_NAME }}
           overwrite: true
+          body: "HI3516EV200"
 
       - name: Upload SDK to release
         uses: svenstaro/upload-release-action@v2
@@ -126,6 +126,7 @@ jobs:
           asset_name: "arm-openipc-hi3516ev200-linux-musleabi_sdk-buildroot.tar.gz"
           tag: ${{ env.TAG_NAME }}
           overwrite: true
+          body: "MUSLE"
 
       - name: Send binary file to telegram channel
         env:
