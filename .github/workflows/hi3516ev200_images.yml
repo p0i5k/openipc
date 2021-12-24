@@ -95,6 +95,12 @@ jobs:
             -F chat_id=$TG_CHANNEL -F text="$TG_HEADER"
 
       - name: Create release
+        if: steps.build-hi3516ev200-firmware.outcome == 'success' && steps.build-hi3516ev200-sdk.outcome == 'success'
+        run: |
+            git tag ${{ env.TAG_NAME }}
+            git push -f origin ${{ env.TAG_NAME }}
+        
+      - name: Create release
         uses: actions/create-release@v1
         continue-on-error: true
         env:
