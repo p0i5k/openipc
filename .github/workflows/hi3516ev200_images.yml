@@ -80,7 +80,6 @@ jobs:
           ARCHIVE_SDK="${GITHUB_WORKSPACE}/output/images/arm-openipc-linux-musleabi_sdk-buildroot.tar.gz"
           echo "ARCHIVE_SDK=$ARCHIVE_SDK" >> $GITHUB_ENV
           cd $GITHUB_WORKSPACE/output
-          make sdk
 
       - name: Send warning message to telegram channel
         env:
