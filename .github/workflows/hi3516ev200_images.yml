@@ -18,9 +18,6 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v2
-      - run: |
-          git tag latest
-          git push -f origin latest
 
       - name: Install build dependencies
         id: install
@@ -43,13 +40,13 @@ jobs:
           HEAD_TAG=$(git tag --points-at HEAD)
           GIT_HASH=$(git rev-parse --short $GITHUB_SHA)
           BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 3)
-          if [ -z "$HEAD_TAG" ]; then
-            TAG_NAME="latest"
+          if [ "$HEAD_TAG" == "latest" ]; then
+            TAG_NAME="dev"
             RELEASE_NAME="Development Build"
             PRERELEASE=true
           else
-            TAG_NAME="dev"
-            RELEASE_NAME="Release  github.ref "
+            TAG_NAME=${{ github.ref }}
+            RELEASE_NAME=\"Release ${{ github.ref }}\"
             PRERELEASE=false
           fi
           echo "GIT_HASH=$GIT_HASH" >> $GITHUB_ENV
@@ -57,7 +54,7 @@ jobs:
           echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
           echo "PRERELEASE=$PRERELEASE" >> $GITHUB_ENV
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-          echo $GITHUB_ENV
+          echo ${{ GITHUB_ENV }}
           cd $GITHUB_WORKSPACE
           make prepare
 
