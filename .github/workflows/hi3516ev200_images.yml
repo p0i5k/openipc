@@ -45,6 +45,7 @@ jobs:
             RELEASE_NAME="Development Build"
             PRERELEASE=true
             echo "develop"
+            git tag $TAG_NAME
           else
             TAG_NAME="latest"
             RELEASE_NAME="Release ${{ github.ref }}"
@@ -95,10 +96,9 @@ jobs:
           curl $TG_OPTIONS -H "Content-Type: multipart/form-data" -X POST https://api.telegram.org/bot$TG_TOKEN/sendMessage \
             -F chat_id=$TG_CHANNEL -F text="$TG_HEADER"
 
-      - name: Create release
+      - name: Move tag to HEAD
         if: steps.build-hi3516ev200-firmware.outcome == 'success' && steps.build-hi3516ev200-sdk.outcome == 'success'
         run: |
-          git tag $TAG_NAME
           git push -f origin $TAG_NAME
           echo "push tag"
         
