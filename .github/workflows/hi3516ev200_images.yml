@@ -48,8 +48,8 @@ jobs:
             RELEASE_NAME="Development Build"
             PRERELEASE=true
           else
-            TAG_NAME=${{ github.ref }}
-            RELEASE_NAME='"Release ${{ github.ref }}"'
+            TAG_NAME="dev"
+            RELEASE_NAME="Release ${{ github.ref }}"
             PRERELEASE=false
           fi
           echo "GIT_HASH=$GIT_HASH" >> $GITHUB_ENV
@@ -103,6 +103,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tag_name: ${{ env.TAG_NAME }}
           commitish: ${{ env.GIT_HASH }}
           release_name: ${{ env.RELEASE_NAME }}
           draft: false
