@@ -107,7 +107,7 @@ jobs:
           release_name: ${{ env.RELEASE_NAME }}
           draft: false
           prerelease: ${{ env.PRERELEASE }}
-          commitish: ${{ env.GITHUB_SHA }}
+          commitish: ${{ env.GIT_HASH }}
 
       - name: Upload FW to release
         uses: svenstaro/upload-release-action@v2
