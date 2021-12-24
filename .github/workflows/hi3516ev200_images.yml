@@ -44,10 +44,12 @@ jobs:
             TAG_NAME="dev"
             RELEASE_NAME="Development Build"
             PRERELEASE=true
+            echo "develop"
           else
             TAG_NAME="latest"
             RELEASE_NAME="Release ${{ github.ref }}"
             PRERELEASE=false
+            echo "stable"
           fi
           echo "GIT_HASH=$GIT_HASH" >> $GITHUB_ENV
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
@@ -96,8 +98,9 @@ jobs:
       - name: Create release
         if: steps.build-hi3516ev200-firmware.outcome == 'success' && steps.build-hi3516ev200-sdk.outcome == 'success'
         run: |
-            git tag ${{ env.TAG_NAME }}
-            git push -f origin ${{ env.TAG_NAME }}
+          git tag $TAG_NAME
+          git push -f origin $TAG_NAME
+          echo "push tag"
         
       - name: Create release
         uses: actions/create-release@v1
