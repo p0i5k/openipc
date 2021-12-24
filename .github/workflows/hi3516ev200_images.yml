@@ -66,12 +66,9 @@ jobs:
         run: |
           ARCHIVE_FW="${GITHUB_WORKSPACE}/output/images/openipc.hi3516ev200-br.tgz"
           echo "ARCHIVE_FW=$ARCHIVE_FW" >> $GITHUB_ENV
-          cd $GITHUB_WORKSPACE
-          touch ${GITHUB_WORKSPACE}/output/images/uImage
-          touch ${GITHUB_WORKSPACE}/output/images/rootfs.squashfs
-          [[ $(stat --printf="%s" ${GITHUB_WORKSPACE}/output/images/uImage) -gt 2097152 ]] && echo "TG_NOTIFY=Warning, kernel size exceeded : $(stat --printf="%s" ${GITHUB_WORKSPACE}/output/images/uImage) vs 2097152... HI3516EV200" >> $GITHUB_ENV && exit 1
-          [[ $(stat --printf="%s" ${GITHUB_WORKSPACE}/output/images/rootfs.squashfs) -gt 5242880 ]] && echo "TG_NOTIFY=Warning, rootfs size exceeded - $(stat --printf="%s" ${GITHUB_WORKSPACE}/output/images/rootfs.squashfs) vs 5242880... HI3516EV200" >> $GITHUB_ENV && exit 1
           cd ${GITHUB_WORKSPACE}/output/images
+          touch uImage
+          touch rootfs.squashfs
           mv uImage uImage.hi3516ev200
           mv rootfs.squashfs rootfs.squashfs.hi3516ev200
           md5sum rootfs.squashfs.hi3516ev200 > rootfs.squashfs.hi3516ev200.md5sum
