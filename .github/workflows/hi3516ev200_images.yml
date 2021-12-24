@@ -66,6 +66,7 @@ jobs:
         run: |
           ARCHIVE_FW="${GITHUB_WORKSPACE}/output/images/openipc.hi3516ev200-br.tgz"
           echo "ARCHIVE_FW=$ARCHIVE_FW" >> $GITHUB_ENV
+          mkdir -p ${GITHUB_WORKSPACE}/output/images
           cd ${GITHUB_WORKSPACE}/output/images
           touch uImage
           touch rootfs.squashfs
