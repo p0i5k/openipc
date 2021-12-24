@@ -49,7 +49,7 @@ jobs:
             PRERELEASE=true
           else
             TAG_NAME="dev"
-            RELEASE_NAME="Release ${{ github.ref }}"
+            RELEASE_NAME="Release "${{ github.ref }}
             PRERELEASE=false
           fi
           echo "GIT_HASH=$GIT_HASH" >> $GITHUB_ENV
@@ -57,6 +57,7 @@ jobs:
           echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
           echo "PRERELEASE=$PRERELEASE" >> $GITHUB_ENV
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          printenv
           cd $GITHUB_WORKSPACE
           make prepare
 
@@ -104,7 +105,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.TAG_NAME }}
-          commitish: ${{ env.GIT_HASH }}
           release_name: ${{ env.RELEASE_NAME }}
           draft: false
           prerelease: ${{ env.PRERELEASE }}
